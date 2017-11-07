@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+
+public class HuffmanCoding {
+
+    String phrase;
+    ArrayList<Node> frequencies;
+    HuffmanTree tree;
+
+    HuffmanCoding(String phrase_)
+    {
+        phrase = phrase_;
+        initialize_frequencies();
+
+    }
+
+    //initializes the nodes in the frequency array to hold the value of each unique letter and
+    //its frequency in the phrase
+    void initialize_frequencies()
+    {
+        frequencies = new ArrayList<Node>();
+
+        //loop through the phrase, adding letters to the frequencies array.
+        //if the letter is already in the array, do not add a new node, only increment
+        //the existing node's frequency counter.
+        for(int i = 0; i < phrase.length(); ++i)
+        {
+            boolean alreadyInArray = false;
+
+            for(int f = 0; f < frequencies.size(); ++f)
+            {
+                if(frequencies.get(f).letter == phrase.charAt(i))
+                {
+                    frequencies.get(f).freq++;
+                    alreadyInArray = true;
+                }
+            }
+
+            if(!alreadyInArray)
+            {
+                frequencies.add(new Node(phrase.charAt(i), 1));
+            }
+        }
+    }
+
+    //prints the frequency array
+    void print_frequencies()
+    {
+        for(int i = 0; i < frequencies.size(); ++i)
+        {
+            System.out.print("(" + frequencies.get(i).letter + "," + frequencies.get(i).freq + ") ");
+        }
+        System.out.println();
+    }
+
+}
